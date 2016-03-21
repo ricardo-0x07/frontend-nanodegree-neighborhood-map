@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<!--
+This is an HTML document. It contains information about how elements in the website
+are arranged. In other words, it describes the layout of a website.
+
+I can't wait to see the resumes you put together!
+
+Cameron Pittman, Udacity Course Developer
+-->
+
+<!--
+The <head> of a website generally links to important resources the page will
+need to load. You'll see a lot of <link>s to CSS files for styles and
+<scripts> for JavaScript files to build interactions.
+-->
+<head>
+  <!-- This tells the browser how to read the document. -->
+  <meta charset="utf-8">
+
+  <!-- Tells the browser what the title of this page should be. -->
+  <title>Resume</title>
+
+  <!-- Load the page styles. -->
+  <link href="css/style.css" rel="stylesheet">
+  <title>Framework Test Page</title>
+
+  <link rel="stylesheet"
+      href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script
+      src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script
+      src="http://oauth.googlecode.com/svn/code/javascript/oauth.js"></script>
+    <script
+      src="http://oauth.googlecode.com/svn/code/javascript/sha1.js"></script>
+  <!--
+  jQuery is a common JavaScript library for reading and making changes to the
+  Document Object Model (DOM). The DOM is a tree that contains information
+  about what is actually visible on a website.
+
+  While HTML is a static document, the browser converts HTML to the
+  DOM and the DOM can change. In fact, JavaScript's power comes from
+  its ability to manipulate the DOM, which is essentially a JavaScript
+  object. When JavaScript makes something interesting happen on a
+  website, it's likely the action happened because JavaScript changed
+  the DOM. jQuery is fast and easy to use, but it doesn't do anything
+  you can't accomplish with vanilla (regular) JavaScript.
+  -->
+  <!-- <script src="js/lib/jQuery.js"></script> -->
+  <script src="js/lib/knockout-3.4.0.js"></script>
+
+
+  <!-- More on helper.js in the class -->
+<!--   <script src="js/helper.js"></script>
+ -->
+  <!--
+  Uncomment the <script> tag below when you're ready to add an interactive
+  Google Map to your resume!
+  -->
+<!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+ -->
+<!--  <script async defer >function googleSuccess() {}</script>
+ --><!--  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeDnT9G9IMIFxH9jjTUxmzSKwfForVk04&libraries=places&callback=googleSuccess" async defer></script>
+ --> 
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places" async defer></script>
+<!--  <script src="https://maps.googleapis.com/maps/api/js?libraries=places%26callback=googleSuccess" async defer></script>
+ -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+        <nav role="navigation" class="navbar navbar-inverse <!-- navbar-fixed-top -->">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+              data-toggle="collapse" aria-expanded="false" data-Target="#myNavbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand nav-text" id="brand">
+              <!-- <img src="img/logo.png" class="img-responsive logo" alt="logo image"> -->
+              NEXT-UX
+            </a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle nav-text" data-toggle="dropdown"
+                  role="button" aria-haspopup="true" aria-expanded="false">
+                  Home
+                  <span class="caret" aria-hidden="true"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="listMyServices">Services</a>
+                  </li>
+                  <li>
+                    <a class="listMyCustomers">Customers</a>
+                  </li>
+                  <li>
+                    <a class="listMyProjects">Projects</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                  role="button" aria-haspopup="true" aria-expanded="false">
+                  Search
+                  <span class="caret" aria-hidden="true"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="serviceSearch">Services</a>
+                  </li>
+                  <li>
+                    <a class="customerSearch">Customers</a>
+                  </li>
+                  <li>
+                    <a class="projectSearch">Projects</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                  role="button" aria-haspopup="true" aria-expanded="false">
+                  About
+                  <span class="caret" aria-hidden="true"></span>
+                </a>
+              </li>
+           </ul>
+            <ul class="nav navbar-nav navbar-right">
+           </ul>
+          </div>
+        </div>
+      </nav>
+
+  <div id="main" class="container-fluid">
+    <div class="row">
+      <div class="col-xs-3">
+        <div class="input-group">
+          <input id="filter" type="text" class="form-control" placeholder="Filter for..." data-bind="textInput: filter">
+          <span class="input-group-btn">
+<!--             <button class="btn btn-default" type="button">Filter</button>
+ -->          </span>
+        </div><!-- /input-group -->
+        <!-- ko foreach: filteredItems -->
+          <li class="list-group-item" data-bind="text: title, click: $parent.showInfowindow"></li>
+        <!-- /ko -->
+      </div>
+      <div class="col-xs-9">
+           <div id="mapDiv">
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center">
+    <h1 class="footer-text">NEXT-UX</h1>
+  </footer>
+
+  <!--
+  The next line tells the browser where to download the JavaScript file .....
+  -->
+  <script src="js/app.js"></script>
+
+
+  
+</body>
+</html>

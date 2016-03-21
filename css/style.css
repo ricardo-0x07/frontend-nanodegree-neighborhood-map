@@ -1,0 +1,334 @@
+/* GENERAL*/
+body,
+div,
+ul,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding:0;
+  margin:0;
+  font-family: 'Fauna One', serif;
+}
+
+#main {
+      padding-top: 102px;
+}
+.clear-fix {
+  overflow: auto;
+}
+
+.education-entry,
+.work-entry,
+.project-entry {
+  padding: 0 5%;
+}
+
+h1 {
+  font: 500 40px/48px 'Fauna One', serif;
+
+  /*font-size: 40px;*/
+  color: #f5a623;
+/*  line-height: 48px;
+*/  display: inline;
+}
+
+h2 {
+  font: bold 24px/29px 'Fauna One', serif;
+  /*font-weight: bold;
+  font-size: 24px;
+  line-height: 29px;*/
+  color: #999;
+  padding: 10px;
+}
+
+h3 {
+  font: italic 22px/20px 'Fauna One', serif;
+  /*font-style: italic;
+  line-height: 22px;
+  font-size: 20px;*/
+  color: #000;
+}
+
+h4 {
+  font: bold 14px/17px 'Fauna One', serif;
+  /*font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;*/
+  color: #4a4a4a;
+}
+
+h2,
+h3,
+h4,
+h5 {
+  padding:10px 5%;
+
+}
+
+p {
+  font:  14px/21px "Roboto", sans-serif;
+  /*font-size: 14px;*/
+  color: #333;
+  /*line-height: 21px;*/
+}
+
+a {
+  color: #1199c3;
+  text-decoration: none;
+  margin-top: 10px;
+  display: block;
+  /*padding: 1.5em;*/
+
+}
+
+.date-text {
+  font: italic normal 14px/16px "Roboto", sans-serif;
+  /*font-style: italic;
+  font-size: 14px;
+  line-height: 16px;*/
+  color: #999;
+  float: left;
+}
+
+/*PROJECTS*/
+.caption-date-text {
+    font: italic normal 18px/16px "Roboto", sans-serif;
+    color: #000;
+    padding-bottom: 15px;
+}
+.location-text {
+  line-height: 16px;
+
+}
+
+/*BIO CARD*/
+.welcome-message {
+  font-style: italic;
+  font-size: 26px;
+  color: #f3f3f3;
+  line-height: 28px;
+}
+
+.full-name, .title, #name {
+  font-style: italic;
+  font-size: 18px;
+  line-height: 28px;
+  color: #f3f3f3;
+  background-color: transparent;
+}
+
+.bio-location>a {
+  font-size: 18px;
+  color: #fff;
+}
+h1 {
+  color: #f3f3f3;
+}
+
+#skills-h3 {
+  color: #f5ae23;
+  display: none;
+}
+
+.orange {
+  background-color: #f5ae23;
+}
+
+.orange-text {
+  color: #f5ae23;
+}
+
+.white-text {
+  font-weight: bold;
+  color: #fff;
+}
+
+.gray {
+  background-color: #f3f3f3;
+  padding-bottom: 10px;
+  clear:both;
+}
+
+.dark-gray {
+  background-color: #4a4a4a;
+}
+
+.header-container {
+  background-image: url(../images/header.jpeg);
+  height: 100%;
+  border-bottom: 50px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  box-shadow: 1px 1px 5px #2D2B2B;
+
+
+}
+
+.flex-box {
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+#topContacts {
+    flex-direction: column;
+}
+
+.center-content {
+  padding: 2.5% 5%;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.biopic {
+  float: left;
+  padding: 10px;
+  width: 200px;
+  display: none;
+}
+
+img {
+  padding: 10px;
+}
+
+span {
+  padding: 0;
+}
+
+#lets-connect {
+  text-align: center;
+}
+
+/* Media queries to handle various device widths */
+
+@media only screen and (max-width: 1024px) {
+  #lets-connect {
+    margin-top: 5%;
+  }
+}
+
+@media only screen and (max-width:900px) {
+  .biopic {
+    width: 175px;
+  }
+}
+
+@media only screen and (max-width: 750px) {
+  #lets-connect {
+    margin-top: 10%;
+  }
+  .biopic {
+    width: 150px;
+  }
+  .welcome-message {
+    display: none;
+  }
+}
+
+#map {
+  display: block;
+  height: 100%;
+  margin: 0;
+}
+
+#mapDiv {
+  height: 600px;
+  width: 100%;
+  padding-bottom: 5%;
+}
+
+@media only screen and (min-width: 750px) {
+  #skills-h3,
+  .biopic {
+    display: block;
+  }
+}
+
+  .set-caption {
+    position: absolute;
+    top: 0;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    height: 100%;
+    font-family: 'Fauna One', serif;
+    font-weight: 500;
+    font-size: 40px;
+  }
+
+  .project-text-entry {
+background: rgba(51, 75, 100, .9);
+  }
+
+  .caption-p {
+    font: 20px/16px "Roboto", sans-serif;
+    color: #f3f3f3;
+}
+
+.full-width {
+    width: 100%;
+  }
+
+  .carouselImage {
+    box-shadow: 1px 1px 5px #2D2B2B;
+    max-height: 550px;
+  }
+
+.footer-text {
+    width: 100%;
+    font-size: 70px;
+    color: #9d9d9d;
+    font-family: 'Fauna One', serif;
+}
+
+footer {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex !important;
+    display: flex !important;
+
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+
+    -webkit-align-items: center;
+    align-items: center;
+    height: 300px;
+    background-color: #222;
+
+
+}
+
+a {
+        padding: 24px !important;
+
+}
+
+/*.flex-item-a  {
+        padding: 24px 0 0 0;
+        margin: 0;
+
+}
+*/
