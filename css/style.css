@@ -16,16 +16,10 @@ h6 {
 }
 
 #main {
-      padding-top: 102px;
+      /*padding-top: 85px;*/
 }
 .clear-fix {
   overflow: auto;
-}
-
-.education-entry,
-.work-entry,
-.project-entry {
-  padding: 0 5%;
 }
 
 h1 {
@@ -86,61 +80,12 @@ a {
 
 }
 
-.date-text {
-  font: italic normal 14px/16px "Roboto", sans-serif;
-  /*font-style: italic;
-  font-size: 14px;
-  line-height: 16px;*/
-  color: #999;
-  float: left;
-}
-
-/*PROJECTS*/
-.caption-date-text {
-    font: italic normal 18px/16px "Roboto", sans-serif;
-    color: #000;
-    padding-bottom: 15px;
-}
-.location-text {
-  line-height: 16px;
-
-}
-
-/*BIO CARD*/
-.welcome-message {
-  font-style: italic;
-  font-size: 26px;
-  color: #f3f3f3;
-  line-height: 28px;
-}
-
-.full-name, .title, #name {
-  font-style: italic;
-  font-size: 18px;
-  line-height: 28px;
-  color: #f3f3f3;
-  background-color: transparent;
-}
-
-.bio-location>a {
-  font-size: 18px;
-  color: #fff;
-}
 h1 {
   color: #f3f3f3;
 }
 
-#skills-h3 {
-  color: #f5ae23;
-  display: none;
-}
-
-.orange {
-  background-color: #f5ae23;
-}
-
-.orange-text {
-  color: #f5ae23;
+ul {
+  list-style-type: none;
 }
 
 .white-text {
@@ -173,32 +118,8 @@ h1 {
 
 }
 
-.flex-box {
-  display: -webkit-flex;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 10px;
-}
-
-#topContacts {
-    flex-direction: column;
-}
-
 .center-content {
   padding: 2.5% 5%;
-}
-
-ul {
-  list-style-type: none;
-}
-
-.biopic {
-  float: left;
-  padding: 10px;
-  width: 200px;
-  display: none;
 }
 
 img {
@@ -207,10 +128,6 @@ img {
 
 span {
   padding: 0;
-}
-
-#lets-connect {
-  text-align: center;
 }
 
 /* Media queries to handle various device widths */
@@ -222,41 +139,35 @@ span {
 }
 
 @media only screen and (max-width:900px) {
-  .biopic {
-    width: 175px;
+  .hiddenx {
+    display: none !important;
   }
 }
 
 @media only screen and (max-width: 750px) {
-  #lets-connect {
-    margin-top: 10%;
+
+/*  .hiddenx {
+    display: none !important;
   }
-  .biopic {
-    width: 150px;
-  }
-  .welcome-message {
-    display: none;
-  }
+*/
 }
+
 
 #map {
   display: block;
   height: 100%;
+  width: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;    
   margin: 0;
 }
 
 #mapDiv {
-  height: 600px;
+/*  height: 600px;
   width: 100%;
   padding-bottom: 5%;
-}
-
-@media only screen and (min-width: 750px) {
-  #skills-h3,
-  .biopic {
-    display: block;
-  }
-}
+*/}
 
   .set-caption {
     position: absolute;
@@ -275,10 +186,6 @@ span {
     font-family: 'Fauna One', serif;
     font-weight: 500;
     font-size: 40px;
-  }
-
-  .project-text-entry {
-background: rgba(51, 75, 100, .9);
   }
 
   .caption-p {
@@ -326,9 +233,14 @@ a {
 
 }
 
-/*.flex-item-a  {
-        padding: 24px 0 0 0;
-        margin: 0;
-
+.error{
+  color: #D1C036;
+  font: bold;
+  font-family: monospace;
+  background-color: rgba(34, 34, 34, 0.55);
 }
-*/
+
+.full-width {
+  width: 100%;
+}
+

@@ -20,6 +20,7 @@ app.model = {
     currentMarker: null,
     mapOptions:{ disableDefaultUI: true },
     service:null,
+    // infoWindow: null,
     /**
     * @description get an instance of the information window for each marker
     * @constructor
@@ -83,6 +84,7 @@ app.model = {
     */
     getYelpData: function(place){
 
+            console.log('about to request yelp data');
             var terms = 'business';
             var near = place.formatted_address;
 
@@ -119,26 +121,37 @@ app.model = {
               'dataType': 'jsonp',
               'jsonpCallback': 'cb',
               'success': function(data, textStats, XMLHttpRequest) {
-
-                content = '<div><h3>' + place.name + '</h3>' +
+                console.log(data);
+                content =null;
+                content = '<div class="row"><div class="col-xs-12"><h3>' + place.name + '</h3>' +
                     "<h5><strong>The 3 other nearby places via Yelp</strong></h5>"+
-                    '<table class="table table-striped"><tr><th> Business </th><th> Rated </th><th> Phone </th></tr>'+
-                    '<tr><td> '+data.businesses[0].name+' </td><td> '+data.businesses[0].rating+' </td><td> '+data.businesses[0].display_phone+' </td></tr>'+
-                    '<tr><td> '+data.businesses[1].name+' </td><td> '+data.businesses[1].rating+' </td><td> '+data.businesses[1].display_phone+' </td></tr>'+
-                    '<tr><td> '+data.businesses[2].name+' </td><td> '+data.businesses[2].rating+' </td><td> '+data.businesses[2].display_phone+' </td></tr></table>'+
-                    // '<tr><td>Business: '+data.businesses[0].name+'</td><td>   Rated:   '+data.businesses[0].rating+'</td><td>  Phone:    '+data.businesses[0].display_phone+'</td><\tr>'+
-                    // '<tr><td>Business: '+data.businesses[1].name+'</td><td>   Rated:   '+data.businesses[1].rating+'</td><td>  Phone:    '+data.businesses[1].display_phone+'</td><\tr>'+
-                    // '<tr><td>Business: '+data.businesses[2].name+'</td><td>   Rated:   '+data.businesses[2].rating+'</td><td>  Phone:    '+data.businesses[2].display_phone+'</td><\tr>'+
-                    '</div>';
+                    '<table class="table table-striped"><tr><th> Business </th><th> Rated </th><th class="hidden-xs"> Phone </th></tr>'+
+                    '<tr><td> '+data.businesses[0].name+' </td><td> '+data.businesses[0].rating+' </td><td class="hidden-xs"> '+data.businesses[0].display_phone+' </td></tr>'+
+                    '<tr><td> '+data.businesses[1].name+' </td><td> '+data.businesses[1].rating+' </td><td class="hidden-xs"> '+data.businesses[1].display_phone+' </td></tr>'+
+                    '<tr><td> '+data.businesses[2].name+' </td><td> '+data.businesses[2].rating+' </td><td class="hidden-xs"> '+data.businesses[2].display_phone+' </td></tr></table>'+
+                    '</div></div>';
+                    console.log(content);
+                    if (app.model.currentMarker.infoWindow !== null) {
+                        var tMap = app.ViewModel.map;
+                        var tCurrentMarker = app.model.currentMarker;
+                        console.log('about to open infowindow');
+                        console.log(content);
+                        console.log('map: ');
+                        console.log(app.ViewModel.map);
+                        console.log(app.model.currentMarker.infoWindow);
+                        app.model.currentMarker.infoWindow.setContent(content);
+                        console.log(app.model.currentMarker.infoWindow);
+                        app.model.currentMarker.infoWindow.open(tMap, tCurrentMarker);
+                        // app.model.currentMarker = null;
 
-                    this.infoWindow = app.model.getInfoWindow();
-                    this.infoWindow.setContent(content);
-                    this.infoWindow.open(app.ViewModel.map, app.model.currentMarker);
-                    app.model.currentMarker = null;
+                    }else{
+                        console.log('infowindow is null');
+
+                    }
 
 
               },
-              error: this.handleError
+              error: app.model.handleError
 
             });
 
@@ -173,27 +186,46 @@ app.model = {
 app.ViewModel = function(){
 
     var self = this;
+    
+    // timer status variable
+    self.timedOut = false;
 
-    if (typeof google === 'undefined' || google === null) {
+    // fallback function
+    function googleError()
+    {
+      var alertmsg = "There has been an error.";
+      alertmsg += "\n\nRefresh page and this error should go away.";
+      var errorPgContent = '<div id="carousel-example-generic" class="carousel slide"data-ride="carousel"><div class="carousel-inner" role="listbox"><div class="item active"><img  src="images/google-map-api.png" class="img-responsive " alt="Responsive image" /><div class="carousel-caption set-caption"><div class="full-width text-center"><h3 class="error">'+alertmsg.toUpperCase()+'</h3></div></div></div></div>';
 
-      //This will Throw the error if 'google' is not defined
-          window.alert('Reload Page, Quota Exceeded');
+      $('#view').html(errorPgContent);
+      return (true);
+    }
 
-    } else {
-          // var infoWindow = new google.maps.InfoWindow();
-          // this.infoWindow = infoWindow;
+        // ko observable array that stores the markers used to create the list view and populate the map
           self.markers = ko.observableArray([]);
           $("#mapDiv").append(app.model.googleMap);
          
-          /*
-            For the map to be displayed, the googleMap var must be
-            appended to #mapDiv.
-          */
-          self.map = new google.maps.Map(document.getElementById('map'), app.model.mapOptions);
-          
+          //try catch statement used to intiate fallback if required 
+          try{
+            /*
+              For the map to be displayed, the googleMap var must be
+              appended to #mapDiv.
+            */
+            app.ViewModel.map = new google.maps.Map(document.getElementById('map'), app.model.mapOptions);
+
+          }catch(e){
+            console.log('error: '+e.message);
+
+            // this initiates fallback and stops the initial request for starting
+            self.stop = googleError();
+
+          }finally{
+
+          }
+
           // creates a Google place search service object. PlacesService does the work of
           // actually searching for location data.
-          app.ViewModel.service = new google.maps.places.PlacesService(self.map);
+          app.ViewModel.service = new google.maps.places.PlacesService(app.ViewModel.map);
 
         /*
         @description createMapMarker(placeData) reads Google Places search results to create map pins.
@@ -206,12 +238,12 @@ app.ViewModel = function(){
           // The next lines save location data from the search result object to local variables
           var lat = placeData.geometry.location.lat();  // latitude from the place service
           var lon = placeData.geometry.location.lng();  // longitude from the place service
-          var name = placeData.formatted_address;   // name of the place from the place service
+          var name = placeData.name;   // name of the place from the place service
           var bounds = window.mapBounds;            // current boundaries of the map window
 
           // marker is an object with additional data about the pin for a single location
           var marker = new google.maps.Marker({
-            map: self.map,
+            map: app.ViewModel.map,
             position: placeData.geometry.location,
             title: name,
             place_id: placeData.place_id,
@@ -219,27 +251,42 @@ app.ViewModel = function(){
             animation: google.maps.Animation.DROP
 
           });
-
-
+        
+        // set an infoWindow for each marker
+          marker.infoWindow = app.model.getInfoWindow();
           // add markers to marker array
           self.markers.push(marker);
 
+          // Check to see if all initail data was recieved
+          if (app.model.locations.length === self.markers().length) {
+            timedOut = false;
+            clearTimeout(self.requestTimer);
+            console.log('timer reset');
 
+          }
+
+
+            // add listener to respond to click events on markers
           google.maps.event.addListener(marker, 'click', function() {
+            if (app.model.currentMarker !== null && app.model.currentMarker.infoWindow !== null) {
+                app.model.currentMarker.infoWindow.close();                
+            }
+
               app.model.currentMarker = null;
               app.model.currentMarker = marker;
               app.model.placeDetailsByPlaceId(app.model.currentMarker);
           });
-
-          marker.addListener('click', self.toggleBounce);
+        
+        // add listner to trigger bounce animation for marker icon after they have been clicked
+          marker.addListener('click', app.ViewModel.toggleBounce);
 
           // this is where the pin actually gets added to the map.
           // bounds.extend() takes in a map location object
           bounds.extend(new google.maps.LatLng(lat, lon));
           // fit the map to the new marker
-          self.map.fitBounds(bounds);
+          app.ViewModel.map.fitBounds(bounds);
           // center the map
-          self.map.setCenter(bounds.getCenter());
+          app.ViewModel.map.setCenter(bounds.getCenter());
         };
 
 
@@ -268,9 +315,11 @@ app.ViewModel = function(){
             app.ViewModel.createMapMarker(results[0]);
 
               var place = results[0];
+              console.log(place);
               
           } else{
             window.alert('Error, Try Again');
+            return;
           }
 
         };
@@ -300,7 +349,17 @@ app.ViewModel = function(){
 
         // pinPoster(locations) creates pins on the map for each location in
         // the locations array
-        self.pinPoster();
+        // the if statement checks to see if its ok to proceed with the request for the initial data for the map locations
+        if (!self.stop) {
+            self.pinPoster();
+        }
+        
+        // timer for fallback in case requests are taking too long
+         self.requestTimer = setTimeout(function() {
+             timedOut = true;
+             console.log('Request timed out.');
+             googleError();
+         }, 10000);
 
         /* @description add back market to map
         * @param {number} index - position of marker in markers array
@@ -328,27 +387,30 @@ app.ViewModel = function(){
               self.markers().forEach(function(marker,index){
                   var markerStr = marker.title;
                   if (!filter) {
-                     self.setMapOnAll(self.map); 
+                     self.setMapOnAll(app.ViewModel.map); 
                   }
 
                   if (markerStr.toLowerCase().indexOf(filter) !== -1) {
-                      self.addMarker(index,self.map);
+                      self.addMarker(index,app.ViewModel.map);
                   }
 
               });
           };
 
-
+        // ko observable tha collects the filter from the html input element
           self.filter = ko.observable("");
           self.initialize = true;
 
+        // ko computed observable that will filter the markers observable array based on the filter input
           self.filteredItems = ko.computed(function (){
               var filter = self.filter().toLowerCase();
 
               if (!filter) {
+                $('.list-group-item ').addClass('hiddenx');
                   self.filterMarkers(filter);
                   return self.markers();
               } else {
+                  $('.list-group-item').removeClass('hiddenx');
                   self.filterMarkers(filter);
                   return ko.utils.arrayFilter(self.markers(), function (item) {
                       return item.title.toLowerCase().indexOf(filter) !== -1;
@@ -361,9 +423,15 @@ app.ViewModel = function(){
          * @param {object} marker - marker selected from list view
          */          
          this.showInfowindow = function(marker){
+            if (app.model.currentMarker !== null && app.model.currentMarker.infoWindow !== null) {
+                app.model.currentMarker.infoWindow.close();                
+            }
+                $('#filter').val('');
+                $('.list-group-item ').addClass('hiddenx');
+
               app.model.currentMarker = null;
               app.model.currentMarker = marker;
-              toggleBounce();
+              app.ViewModel.toggleBounce();
               app.model.placeDetailsByPlaceId(app.model.currentMarker);
           };
 
@@ -373,14 +441,15 @@ app.ViewModel = function(){
           // and adjust map bounds
           window.addEventListener('resize', function(e) {
             //Make sure the map bounds get updated on page resize
-           self.map.fitBounds(mapBounds);
+           app.ViewModel.map.fitBounds(window.mapBounds);
+           // app.ViewModel.map.panTo(place.geometry.location);
+           console.log('resized');
           });
 
 
 
 
-    }
-    
+
 };
 ko.applyBindings(new app.ViewModel());
 
