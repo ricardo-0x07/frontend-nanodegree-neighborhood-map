@@ -3,12 +3,12 @@ This project displays place i am interested in and details about it and other pl
 This project was created as part of the Frontend Nano Degree Programme i did with Udacity
 
 ## Installation
-enter the following url in a browser and press enter:{insert url here}
+enter the following url in a browser and press enter:http://ricardo-0x07.github.io/frontend-nanodegree-neighborhood-map
 
 
 ## Usage
 1. After the application has been loaded successfully, you may click on the markers to see details of interest.
-2. use the seach field above the list displayed on the left to search for a specific location(s).
+2. use the search field above the list displayed on the left to search for a specific location(s).
 3. you may also click on addresses displayed in the list to see details for the locations displayed over the respective markers
 
 ## Contributing
@@ -30,3 +30,20 @@ enter the following url in a browser and press enter:{insert url here}
 ## License
 
 TODO: Write license
+
+## changelog
+2016-03-24: made updates 
+1. fix applications responsiveness.
+2. replaced the code that used jquery to implement view model logic with code that used knockoutjs
+3. List view now visible on smaller screens.
+4. modified locations array to a simple array of strings.
+5. implemented handlebars js templating 
+6. Used fail() instead of error
+7. effort made indentation issues as far as practical
+8. 
+
+
+
+
+
+
