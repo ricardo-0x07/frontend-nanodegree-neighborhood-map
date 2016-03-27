@@ -6,439 +6,91 @@
   <title>Neighborhood Map</title>
 
   <!-- Load the page styles. -->
-  <!-- <link href="css/style.css" rel="stylesheet"> -->
+  <link href="css/style.css" rel="stylesheet">
 
-  <style type="text/css">
-    /* GENERAL*/
-    body,
-    div,
-    ul,
-    li,
-    p,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-      padding:0;
-      margin:0;
-      font-family: 'Fauna One', serif;
-    }
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
-    #main {
-          padding-top: 5px;
-    }
-    .clear-fix {
-      overflow: auto;
-    }
-
-    h1 {
-      font: 500 40px/48px 'Fauna One', serif;
-
-      /*font-size: 40px;*/
-      color: #f5a623;
-    /*  line-height: 48px;
-    */  display: inline;
-    }
-
-    h2 {
-      font: bold 24px/29px 'Fauna One', serif;
-      /*font-weight: bold;
-      font-size: 24px;
-      line-height: 29px;*/
-      color: #999;
-      padding: 10px;
-    }
-
-    h3 {
-      font: italic 22px/20px 'Fauna One', serif;
-      /*font-style: italic;
-      line-height: 22px;
-      font-size: 20px;*/
-      color: #000;
-    }
-
-    h4 {
-      font: bold 14px/17px 'Fauna One', serif;
-      /*font-weight: bold;
-      font-size: 14px;
-      line-height: 17px;*/
-      color: #4a4a4a;
-    }
-
-    h2,
-    h3,
-    h4,
-    h5 {
-      padding:10px 5%;
-
-    }
-
-    p {
-      font:  14px/21px "Roboto", sans-serif;
-      /*font-size: 14px;*/
-      color: #333;
-      /*line-height: 21px;*/
-    }
-
-    a {
-      color: #1199c3;
-      text-decoration: none;
-      margin-top: 10px;
-      display: block;
-      /*padding: 1.5em;*/
-
-    }
-
-    h1 {
-      color: #f3f3f3;
-    }
-
-    ul {
-      list-style-type: none;
-    }
-
-    .white-text {
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .gray {
-      background-color: #f3f3f3;
-      padding-bottom: 10px;
-      clear:both;
-    }
-
-    .dark-gray {
-      background-color: #4a4a4a;
-    }
-
-    .header-container {
-      background-image: url(../images/header.jpeg);
-      height: 100%;
-      border-bottom: 50px;
-      background-repeat: no-repeat;
-      background-position: center center;
-      -webkit-background-size: cover;
-      -moz-background-size: cover;
-      -o-background-size: cover;
-      background-size: cover;
-      box-shadow: 1px 1px 5px #2D2B2B;
-
-
-    }
-
-    .center-content {
-      padding: 2.5% 5%;
-    }
-
-    img {
-      padding: 10px;
-    }
-
-    span {
-      padding: 0;
-    }
-
-    /* Media queries to handle various device widths */
-
-    @media only screen and (max-width:900px) {
-      .hiddenx {
-        display: none !important;
-      }
-    }
-
-    @media only screen and (min-width:899px) {
-      .hiddenx {
-        display: block !important;
-      }
-
-    }
-
-    @media (max-width: 768px) {
-        .navbar, #footer {
-            display: none !important;
-        }
-    }
-
-    @media (min-width: 769px) {
-        .navbar, #footer {
-            display: block !important;
-        }
-
-    }
-
-  /*Galaxy 5*/
-  @media handheld and (min-width: 640px) and (orientation: landscape) { 
-    #map{
-      height: 360px !important;
-    }
-
-   }
-
-   @media handheld and (min-width: 360px) and (orientation: portrait) { 
-     #map{
-       height: 640px !important;
-     }
-
-    }
-
-/*iPhone 5*/
-    @media handheld and (min-width: 568px) and (orientation: landscape) { 
-      #map{
-        height: 320px !important;
-      }
-
-     }
-
-     @media handheld and (min-width: 320px) and (orientation: portrait) { 
-       #map{
-         height: 568px !important;
-       }
-
-      }
-  /*iPhone 6*/
-      @media handheld and (min-width: 667px) and (orientation: landscape) { 
-        #map{
-          height: 320px !important;
-        }
-
-       }
-
-       @media handheld and (min-width: 320px) and (orientation: portrait) { 
-         #map{
-           height: 667px !important;
-         }
-
-        }
-
-        /*iPhone 6 Plus*/
-        @media handheld and (min-width: 736px) and (orientation: landscape) { 
-          #map{
-            height: 414px !important;
-          }
-
-         }
-
-         @media handheld and (min-width: 414px) and (orientation: portrait) { 
-           #map{
-             height: 736px !important;
-           }
-
-          }
-
-          /*iPad*/
-          @media handheld and (min-width: 1024px) and (orientation: landscape) { 
-            #map{
-              height: 768px !important;
-            }
-
-           }
-
-           @media handheld and (min-width: 768px) and (orientation: portrait) { 
-             #map{
-               height: 1024px !important;
-             }
-
-            }
-  html, body, #mapDiv, #view, #main, #map {
-      width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    #map {
-      display: block;
-      height: 700px;
-      width: 100%;
-      margin: 0;
-      padding: 0;
-     
-    }
-
-    #mapDiv {
-    }
-
-      .set-caption {
-        position: absolute;
-        top: 0;
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-align: center;
-        -moz-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-        height: 100%;
-        font-family: 'Fauna One', serif;
-        font-weight: 500;
-        font-size: 40px;
-      }
-
-      .caption-p {
-        font: 20px/16px "Roboto", sans-serif;
-        color: #f3f3f3;
-    }
-
-    .full-width {
-        width: 100%;
-      }
-
-      .carouselImage {
-        box-shadow: 1px 1px 5px #2D2B2B;
-        max-height: 550px;
-      }
-
-    .footer-text {
-        width: 100%;
-        font-size: 70px;
-        color: #9d9d9d;
-        font-family: 'Fauna One', serif;
-    }
-
-    footer {
-        display: -webkit-box;
-        display: -moz-box;
-        display: -ms-flexbox;
-        display: -webkit-flex !important;
-        display: flex !important;
-
-        -webkit-box-align: center;
-        -moz-box-align: center;
-        -ms-flex-align: center;
-
-        -webkit-align-items: center;
-        align-items: center;
-        height: 300px;
-        background-color: #222;
-
-
-    }
-
-    a {
-            padding: 15px !important;
-
-    }
-
-    .error{
-      color: #D1C036;
-      font: bold;
-      font-family: monospace;
-      background-color: rgba(34, 34, 34, 0.55);
-    }
-
-    .full-width {
-      width: 100%;
-    }
-
-</style>
-  <link rel="stylesheet"
-      href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-  <script
-    src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script
-    src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script
-    src="http://oauth.googlecode.com/svn/code/javascript/oauth.js" async></script>
-  <script
-    src="http://oauth.googlecode.com/svn/code/javascript/sha1.js" async></script>
-  <script src="js/lib/knockout-3.4.0.js"></script>
-
-
-  <script  src="https://maps.googleapis.com/maps/api/js?libraries=places" async></script>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
-        <nav role="navigation" class="navbar navbar-inverse ">
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed"
-              data-toggle="collapse" aria-expanded="false" data-Target="#myNavbar">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a href="#" class="navbar-brand nav-text" id="brand">
-              <!-- <img src="img/logo.png" class="img-responsive logo" alt="logo image"> -->
-              NEXT-UX
-            </a>
-          </div>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle nav-text" data-toggle="dropdown"
-                  role="button" aria-haspopup="true" aria-expanded="false">
-                  Home
-                  <span class="caret" aria-hidden="true"></span>
-                </a>
-                <ul class="dropdown-menu">
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                  role="button" aria-haspopup="true" aria-expanded="false">
-                  Search
-                  <span class="caret" aria-hidden="true"></span>
-                </a>
-                <ul class="dropdown-menu">
-                </ul>
-              </li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-                  role="button" aria-haspopup="true" aria-expanded="false">
-                  About
-                  <span class="caret" aria-hidden="true"></span>
-                </a>
-              </li>
-           </ul>
-            <ul class="nav navbar-nav navbar-right">
-           </ul>
-          </div>
-        </div>
-      </nav>
+<!--
+The next line tells the browser where to download the JavaScript file .....
+-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="http://oauth.googlecode.com/svn/code/javascript/oauth.js" async></script>
+<script src="http://oauth.googlecode.com/svn/code/javascript/sha1.js" async></script>
+<script src="lib/knockout-3.4.0.js"></script>
+<!-- <script src="js/helper.js"></script> -->
+<script src="lib/handlebars-v3.0.0.js"></script>
 
+<script id="marker-tbl-row" type="text/x-handlebars-template">
+  <div class="row">
+    <div class="col-xs-12"id="marker-col">
+      <h3>{{name}}</h3>
+      <h5><strong>The 3 other nearby places via Yelp</strong></h5>
+      <table class="table table-striped" id="marker-tbl">
+        <tr><th> Business </th><th> Rated </th><th class="hidden-xs"> Phone </th></tr>
+        {{#each this}}
+        <tr><td>{{ name }}</td><td>{{ rating }}</td><td class="hidden-xs">{{ display_phone }}</td></tr>
+        {{/each}}
+      </table>
+    </div>
+  </div>
+</script>
+<script id="yelpErrorScript" type="text/x-handlebars-template">
+  <div class="row">
+    <div class="yelpError" class="col-xs-12 center">
+      <ul>
+        <li>
+          <img src="{{imgUrl}}" class="img-responsive inline-block" alt="Responsive image" />
+        </li>
+        <li>
+          <p class="bg-danger"> {{error}} </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</script>
+<script src="js/all.js"></script>
+<script  src="https://maps.googleapis.com/maps/api/js?v=3&libraries=places&callback=googleSuccess" onerror="googleError()"async></script>
+<body>
+<!-- top navbar -->
+  <div class="navbar navbar-inverse navbar-fixed-top">
+     <div class="container">
+      <div class="navbar-header">
+           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar" id="hamButton">
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </button>
+           <a class="navbar-brand" href="#">Mountain View Map</a>
+      </div>
+     </div>
+  </div>
   <div id="main" class="container">
     <div class="row" id='view'>
-      <div class="col-md-3">
-        <form class="form-inline">
-          <div class="input-group">
-            <input id="filter" type="text" class="form-control" placeholder="Search for..." data-bind="textInput: filter">
-            <span class="input-group-btn">
-            </span>
-          </div><!-- /input-group -->
-          <!-- ko foreach: filteredItems -->
-            <a href="#" class="list-group-item hiddenx" data-bind="text: title, click: $parent.showInfowindow"></a>
-          <!-- /ko -->
-        </form>
+      <div class="col-sm-4" id="listCol">
+        <div class="collapse navbar-collapse" id="sidebar">
+          <ul class="nav navbar-nav">
+            <form class="navbar-form" role="search">
+              <div >
+                <input id="filter" type="text" class="searchBox" placeholder="Search for..." data-bind="textInput: filter">
+              </div><!-- /input-group -->
+            </form>
+            <ul class="nav" data-bind="foreach: filteredItems">
+              <div data-bind="visible: map">
+                <a href="#" class="list-group-item"  data-toggle="collapse" data-target="#sidebar" data-bind="text: title, click: $parent.showInfowindow"></a>
+              </div>
+            </ul>
+          </ul>
         </div>
-      <div class="col-md-9" id='mapCol'>
-           <div id="mapDiv">
-          </div>
       </div>
-    </div>
-    <div class="row" id="footer">
-      <div class="col-xs-12">
-        <footer class="text-center">
-          <h1 class="footer-text">NEXT-UX</h1>
-        </footer>
+      <div class="col-sm-8" id='mapCol'>
+        <div id="mapDiv">
+        </div>
       </div>
     </div>
   </div>
 
-
-  <!--
-  The next line tells the browser where to download the JavaScript file .....
-  -->
-  <script src="js/app.min.js"></script>
-
-
-  
 </body>
 </html>
