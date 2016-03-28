@@ -69,12 +69,12 @@ The next line tells the browser where to download the JavaScript file .....
   </div>
   <div id="main" class="container">
     <div class="row" id='view'>
-      <div class="col-sm-4" id="listCol">
+      <div class="col-sm-2" id="listCol">
         <div class="collapse navbar-collapse" id="sidebar">
           <ul class="nav navbar-nav">
             <form class="navbar-form" role="search">
               <div >
-                <input id="filter" type="text" class="searchBox" placeholder="Search for..." data-bind="textInput: filter">
+                <input id="filter" type="text" class="searchBox" data-bind="textInput: filter">
               </div><!-- /input-group -->
             </form>
             <ul class="nav" data-bind="foreach: filteredItems">
@@ -85,7 +85,7 @@ The next line tells the browser where to download the JavaScript file .....
           </ul>
         </div>
       </div>
-      <div class="col-sm-8" id='mapCol'>
+      <div class="col-sm-10" id='mapCol'>
         <div id="mapDiv">
         </div>
       </div>
