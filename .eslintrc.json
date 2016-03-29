@@ -1,0 +1,10 @@
+{
+    "extends": "google",
+    "globals": {
+        "$": false
+    },
+    "rules": {
+        "camelcase": [2, {"properties": "never"}]
+    }
+
+}
