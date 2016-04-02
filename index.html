@@ -8,10 +8,28 @@
   <!-- Load the page styles. -->
   <link href="css/style.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+ <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+<body>
+<!-- top navbar -->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+     <div class="container">
+      <div class="navbar-header">
+           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".sidebar" >
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+           </button>
+           <a class="navbar-brand" href="#">Mountain View Map</a>
+      </div><!--/.navbar-header -->
+     </div><!--/.container -->
+  </nav><!--/.navbar -->  
+  <div class="container main" data-bind="template: { name: app.ViewModel.view, data: app.ViewModel.viewData }">
+  </div>
+</body>
 <!--
 The next line tells the browser where to download the JavaScript file .....
 -->
@@ -20,77 +38,69 @@ The next line tells the browser where to download the JavaScript file .....
 <script src="http://oauth.googlecode.com/svn/code/javascript/oauth.js" async></script>
 <script src="http://oauth.googlecode.com/svn/code/javascript/sha1.js" async></script>
 <script src="lib/knockout-3.4.0.js"></script>
+<script src='lib/knockout-es5.min.js'></script>
 <!-- <script src="js/helper.js"></script> -->
 <script src="lib/handlebars-v3.0.0.js"></script>
 
-<script id="marker-tbl-row" type="text/x-handlebars-template">
-  <div class="row">
-    <div class="col-xs-12"id="marker-col">
-      <h3>{{name}}</h3>
-      <h5><strong>The 3 other nearby places via Yelp</strong></h5>
-      <table class="table table-striped" id="marker-tbl">
-        <tr><th> Business </th><th> Rated </th><th class="hidden-xs"> Phone </th></tr>
-        {{#each this}}
-        <tr><td>{{ name }}</td><td>{{ rating }}</td><td class="hidden-xs">{{ display_phone }}</td></tr>
-        {{/each}}
-      </table>
-    </div>
+<script id="yelp-error-template" type="text/html">
+  <div class="yelpError" id="yelp-error-content" class="col-xs-12 center">
+    <tr>
+      <td style="float: left;">
+        <img src="img/warning.png" class="img-responsive inline-block" alt="Responsive image" />
+      </td>
+      <td>
+        <p class="bg-danger solid" data-bind="text: app.ViewModel.yelpErrorMessage"> </p>
+      </td>
+    </tr>
   </div>
 </script>
-<script id="yelpErrorScript" type="text/x-handlebars-template">
-  <div class="row">
-    <div class="yelpError" class="col-xs-12 center">
-      <ul>
-        <li>
-          <img src="{{imgUrl}}" class="img-responsive inline-block" alt="Responsive image" />
-        </li>
-        <li>
-          <p class="bg-danger"> {{error}} </p>
-        </li>
-      </ul>
+<script id="business-template" type="text/html">
+  <tr>
+    <td data-bind="text: name"></td>
+    <td data-bind="text: rating"></td>
+    <td class="hidden-xs" data-bind="text: display_phone"></td>
+  </tr>
+</script>
+<script type="text/html" id="app-template">
+  <div class="row" id="view" >
+    <aside class="col-sm-3 listCol">
+      <div class="collapse navbar-collapse sidebar" >
+        <ul class="nav navbar-nav">
+          <form class="navbar-form" role="search">
+            <div >
+              <input type="text" class="searchBox" data-bind="textInput: app.ViewModel.koFilter">
+            </div><!-- /input-group -->
+          </form><!-- /.navbar-form -->
+          <ul class="nav" data-bind="foreach: app.ViewModel.filteredItems">
+            <div data-bind="visible: map">
+              <a href="#" class="list-group-item"  data-toggle="collapse" data-target=".sidebar" data-bind="text: title, click: app.ViewModel.showInfowindow"></a>
+            </div>
+          </ul><!-- /.nav -->
+        </ul><!-- /.navbar-nav -->
+      </div><!-- /.navbar-collapse -->
+    </aside><!-- /.col-sm-3 .listCol-->
+    <main class="col-sm-9" >
+      <div class="mapDiv">
+      </div><!-- /.mapDiv -->
+    </main><!-- /.mapCol -->
+  </div><!-- /.row #view-->
+</script>
+<script type="text/html" id="error-template">
+  <div id="carousel-example-generic" class="carousel slide"data-ride="carousel">
+    <div class="carousel-inner" role="listbox">
+      <div class="item active">
+        <img  src="img/google-map-api.png" class="img-responsive "alt="Responsive image" />
+        <div class="carousel-caption set-caption">
+          <div class="full-width text-center">
+            <h3 class="error">There has been an error.
+            Refresh page and this error should go away.</h3>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </script>
 <script src="js/all.js"></script>
-<script  src="https://maps.googleapis.com/maps/api/js?v=3&libraries=places&callback=googleSuccess" onerror="googleError()"async></script>
-<body>
-<!-- top navbar -->
-  <div class="navbar navbar-inverse navbar-fixed-top">
-     <div class="container">
-      <div class="navbar-header">
-           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#sidebar" id="hamButton">
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-           </button>
-           <a class="navbar-brand" href="#">Mountain View Map</a>
-      </div>
-     </div>
-  </div>
-  <div id="main" class="container">
-    <div class="row" id='view'>
-      <div class="col-sm-3" id="listCol">
-        <div class="collapse navbar-collapse" id="sidebar">
-          <ul class="nav navbar-nav">
-            <form class="navbar-form" role="search">
-              <div >
-                <input id="filter" type="text" class="searchBox" data-bind="textInput: filter">
-              </div><!-- /input-group -->
-            </form>
-            <ul class="nav" data-bind="foreach: filteredItems">
-              <div data-bind="visible: map">
-                <a href="#" class="list-group-item"  data-toggle="collapse" data-target="#sidebar" data-bind="text: title, click: $parent.showInfowindow"></a>
-              </div>
-            </ul>
-          </ul>
-        </div>
-      </div>
-      <div class="col-sm-9 mapCol" >
-        <div id="mapDiv">
-        </div>
-      </div>
-    </div>
-  </div>
+<script  src="https://maps.googleapis.com/maps/api/js?v=3&libraries=places&callback=googleSuccess" onerror="app.model.googleError()"async></script>
 
-</body>
 </html>
