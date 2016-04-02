@@ -5,7 +5,7 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 var eslint = require('gulp-eslint');
-var jasmine = require('gulp-jasmine-phantom');
+// var jasmine = require('gulp-jasmine-phantom');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var sourcemaps = require('gulp-sourcemaps');
@@ -13,16 +13,17 @@ var imagemin = require('gulp-imagemin');
 var pngquant = require('imagemin-pngquant');
 var ghPages = require('gulp-gh-pages');
 
-gulp.task('default', ['styles', 'lint', 'copy-html', 'copy-images', 'scripts'], function() {
-  gulp.watch('sass/**/*.scss', ['styles']);
-  gulp.watch('js/*.js', ['lint', 'scripts']);
-  gulp.watch('./index.html', ['copy-html']);
-  gulp.watch('./dist/index.html').on('change', browserSync.reload);
+gulp.task('default', ['styles', 'lint', 'copy-html', 'copy-images', 'scripts'],
+  function() {
+    gulp.watch('src/sass/**/*.scss', ['styles']);
+    gulp.watch('src/js/*.js', ['lint', 'scripts']);
+    gulp.watch('src/index.html', ['copy-html']);
+    gulp.watch('dist/index.html').on('change', browserSync.reload);
 
-  browserSync.init({
-    server: './dist'
+    browserSync.init({
+      server: './dist'
+    });
   });
-});
 
 gulp.task('dist', [
   'copy-html',
@@ -34,13 +35,13 @@ gulp.task('dist', [
 ]);
 
 gulp.task('scripts', function() {
-  gulp.src('js/*.js')
+  gulp.src('src/js/*.js')
 		.pipe(concat('all.js'))
 		.pipe(gulp.dest('dist/js'));
 });
 
 gulp.task('scripts-dist', function() {
-  gulp.src('js/*.js')
+  gulp.src('src/js/*.js')
   .pipe(sourcemaps.init())
 		.pipe(concat('all.js'))
 		.pipe(uglify())
@@ -49,18 +50,18 @@ gulp.task('scripts-dist', function() {
 });
 
 gulp.task('copy-html', function() {
-  gulp.src('./index.html').pipe(gulp.dest('./dist'));
+  gulp.src('src/index.html').pipe(gulp.dest('./dist'));
 });
 
 gulp.task('copy-images', function() {
-  gulp.src('./images/*').pipe(imagemin({
+  gulp.src('src/images/*').pipe(imagemin({
     progressive: true,
     use: [pngquant()]
   })).pipe(gulp.dest('./dist/img'));
 });
 
 gulp.task('styles', function() {
-  gulp.src('sass/**/*.scss')
+  gulp.src('src/sass/**/*.scss')
 		.pipe(sass({outputStyle: 'compressed'
 		}).on('error', sass.logError))
 		.pipe(autoprefixer({
@@ -71,7 +72,7 @@ gulp.task('styles', function() {
 });
 
 gulp.task('lint', function() {
-  return gulp.src(['js/*.js'])
+  return gulp.src(['src/js/*.js'])
 		// eslint() attaches the lint output to the eslint property
 		// of the file object so it can be used by other modules.
 		.pipe(eslint())
@@ -83,12 +84,12 @@ gulp.task('lint', function() {
 		.pipe(eslint.failOnError());
 });
 
-gulp.task('tests', function() {
-  gulp.src('tests/spec/extraSpec.js')
-		.pipe(jasmine({
-  integration: true, vendor: 'js/*.js'
-		}));
-});
+// gulp.task('tests', function() {
+//   gulp.src('tests/spec/extraSpec.js')
+// 		.pipe(jasmine({
+//   integration: true, vendor: 'js/*.js'
+// 		}));
+// });
 
 gulp.task('deploy', function() {
   return gulp.src('./dist/**/*')

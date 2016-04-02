@@ -20,13 +20,23 @@
 
 /* GENERAL*/
 
-body, div, ul, li, p, h1, h2, h3, h4, h5, h6 {
+body, 
+div, 
+ul, 
+li, 
+p, 
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
   padding: 0;
   margin: 0;
   font-family: 'Fauna One', serif;
 }
 
-#main {
+.main {
   padding-top: 60px !important;
 }
 
@@ -94,25 +104,24 @@ span {
 }
 
 
-html, body, #mapDiv, #view, #main, .mapCol {
+html, 
+body, 
+.mapDiv, 
+#view, 
+.main, 
+main {
   width: 100%;
   height: 100%;
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
 }
 
 #map {
   width: 100%;
   height: 100%;
-  margin: 0;
-  padding: 0;
   display: block;
-  width: 100%;
-  margin: 0;
-  padding: 0;
 }
 
-#mapDiv {}
+.mapDiv {}
 
 .set-caption {
   position: absolute;
@@ -190,5 +199,12 @@ html, body, #mapDiv, #view, #main, .mapCol {
     display: inline-block;
     height: auto;
     vertical-align: middle;
+    float: left;
   }
+}
+
+p.solid {
+  border: 1px solid;
+  padding: 1px;
+  text-align: center;
 }

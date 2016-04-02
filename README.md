@@ -4,7 +4,8 @@ This project was created as part of the Frontend Nano Degree Programme i did wit
 
 ## Installation
 
-1. Enter the following url in a browser and press enter: http://ricardo-0x07.github.io/frontend-nanodegree-neighborhood-map
+1. Enter the following url in a browser and press enter: http://ricardo-0x07.github.io/frontend-nanodegree-neighborhood-map.
+2. Fork the repository, download it and open the index.html the dist folder in a browser.
 
 
 ## Usage
@@ -51,11 +52,28 @@ TODO: Write license
 2. Fixed yelp api error handling issue
 3. Implemented gulp task to deploy to gh-pages
 4. implemented gulp tasks to process and minify css, js and images
-5. Corrected issue witl app.ViewModel() loading before Google Maps data request has completed.
-6. 
+5. Corrected issue with app.ViewModel() loading before Google Maps data request has completed.
+
+2016-03-29
+
+1. Began refactoring code into separate files app.js and helper.js.
+2. Re-factored code to only one instance of the infowindow. This apparently helped speed up opening of infowindow.
+3. Corrected issue with placeCallBack error and error log warning.
+4. Corrected some code quality issues.
+5. re-factored code to center marker on click.
+6. Re-factored code to trigger markers click event when a list item is selected.
+7. Implemented infowindow spinner.
+
+2016-4-02
+
+1. Refactored code to use MVVM pattern to log warnings to the UI by using template binding
+2. Eliminate redundant google api requests
+3. Refactored to center map on selected marker 
+4. Corrected error logging issues
+5. Optimized code
 
 #Versioning
- Version 3.
+ Version 4.
 
 
 

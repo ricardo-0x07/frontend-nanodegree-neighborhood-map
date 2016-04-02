@@ -11,5 +11,29 @@
   "dependencies": {
     "eslint-config-google": "^0.4.0",
     "imagemin-pngquant": "^4.2.2"
-  }
+  },
+  "name": "map",
+  "description": "This project displays place i am interested in and details about it and other places nearby. This project was created as part of the Frontend Nano Degree Programme i did with Udacity",
+  "version": "1.0.0",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricardo-0x07/frontend-nanodegree-neighborhood-map.git"
+  },
+  "keywords": [
+    "udacity",
+    "project",
+    "map",
+    "mountain",
+    "view"
+  ],
+  "author": "clive r. cadogan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ricardo-0x07/frontend-nanodegree-neighborhood-map/issues"
+  },
+  "homepage": "https://github.com/ricardo-0x07/frontend-nanodegree-neighborhood-map#readme"
 }
